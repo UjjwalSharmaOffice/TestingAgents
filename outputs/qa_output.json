@@ -1,219 +1,408 @@
-﻿[
+[
   {
-    "feature": "User Registration using email and password",
+    "feature": "User Registration",
     "qa_story": {
-      "title": "User Registration",
+      "title": "As a new user, I should be able to register using email and password so that I can create an account in the system",
       "acceptance_criteria": [
-        "User can register providing an email and a password."
+        "User can submit a registration form with email and password",
+        "System creates a new account with the provided email and password",
+        "User receives confirmation that registration was successful"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-01",
-        "title": "Successful registration",
+        "id": "TS-REG-01",
+        "title": "Successful registration with valid email and password",
         "steps": [
-          "Input email",
-          "Input password",
-          "Submit"
+          "Navigate to the registration page",
+          "Enter a valid email address",
+          "Enter a password",
+          "Submit the registration form"
         ],
-        "expected_result": "Registration is successful."
-      }
-    ],
-    "edge_cases": [
-      {
-        "description": "Missing email or password",
-        "expected_behavior": "Registration is not processed."
-      }
-    ]
-  },
-  {
-    "feature": "Email Verification required before login",
-    "qa_story": {
-      "title": "Email Verification",
-      "acceptance_criteria": [
-        "User must verify their email before logging in."
-      ]
-    },
-    "test_scenarios": [
-      {
-        "id": "TS-02",
-        "title": "Login with verified email",
-        "steps": [
-          "Verify email",
-          "Attempt login"
-        ],
-        "expected_result": "Login is permitted."
+        "expected_result": "User account is created and registration success is confirmed"
       },
       {
-        "id": "TS-03",
-        "title": "Login with unverified email",
+        "id": "TS-REG-02",
+        "title": "Registration with an already registered email",
         "steps": [
-          "Attempt login without verifying email"
+          "Navigate to the registration page",
+          "Enter an email that is already registered",
+          "Enter a password",
+          "Submit the registration form"
         ],
-        "expected_result": "Login is denied."
+        "expected_result": "System rejects registration and informs the user that the email is already in use"
+      },
+      {
+        "id": "TS-REG-03",
+        "title": "Registration with empty email field",
+        "steps": [
+          "Navigate to the registration page",
+          "Leave the email field empty",
+          "Enter a password",
+          "Submit the registration form"
+        ],
+        "expected_result": "System rejects registration and prompts the user to provide an email"
+      },
+      {
+        "id": "TS-REG-04",
+        "title": "Registration with empty password field",
+        "steps": [
+          "Navigate to the registration page",
+          "Enter a valid email address",
+          "Leave the password field empty",
+          "Submit the registration form"
+        ],
+        "expected_result": "System rejects registration and prompts the user to provide a password"
       }
     ],
     "edge_cases": [
       {
-        "description": "Email verification link clicked multiple times",
-        "expected_behavior": "Email remains verified, no error blocks user."
+        "description": "User submits registration form with both email and password fields empty",
+        "expected_behavior": "System rejects registration and prompts for both required fields"
+      },
+      {
+        "description": "User submits registration with an invalid email format",
+        "expected_behavior": "System rejects registration and informs the user the email format is invalid"
       }
     ]
   },
   {
-    "feature": "User Login for registered and verified users using email and password",
+    "feature": "Email Verification",
     "qa_story": {
-      "title": "User Login",
+      "title": "As a registered user, I should be required to verify my email before logging in so that the system confirms my email ownership",
       "acceptance_criteria": [
-        "Registered and verified users can log in using email and password."
+        "After registration, user must verify their email",
+        "Unverified users are not allowed to log in",
+        "Verified users are allowed to proceed to login"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-04",
-        "title": "Successful login",
+        "id": "TS-VER-01",
+        "title": "Login attempt by an unverified user",
         "steps": [
-          "Input registered email",
-          "Input correct password",
-          "Submit login"
+          "Register a new account with valid email and password",
+          "Do not verify the email",
+          "Attempt to log in with the registered email and password"
         ],
-        "expected_result": "User logs in successfully."
+        "expected_result": "System denies login and informs the user that email verification is required"
+      },
+      {
+        "id": "TS-VER-02",
+        "title": "Successful login after email verification",
+        "steps": [
+          "Register a new account with valid email and password",
+          "Complete the email verification process",
+          "Attempt to log in with the registered email and password"
+        ],
+        "expected_result": "System allows the user to log in successfully"
+      },
+      {
+        "id": "TS-VER-03",
+        "title": "Email verification completes successfully",
+        "steps": [
+          "Register a new account with valid email and password",
+          "Perform the email verification step"
+        ],
+        "expected_result": "System marks the user's email as verified"
       }
     ],
     "edge_cases": [
       {
-        "description": "Login with wrong password",
-        "expected_behavior": "Login is denied."
+        "description": "User attempts to verify email with an invalid or expired verification token",
+        "expected_behavior": "System rejects verification and informs the user the token is invalid or expired"
+      },
+      {
+        "description": "User attempts to verify an email that is already verified",
+        "expected_behavior": "System acknowledges the email is already verified"
       }
     ]
   },
   {
-    "feature": "Session Management",
+    "feature": "User Login",
     "qa_story": {
-      "title": "Session Management",
+      "title": "As a registered and verified user, I should be able to log in using my email and password so that I can access the system",
       "acceptance_criteria": [
-        "System creates and maintains a user session after login."
+        "Registered and verified users can log in with their email and password",
+        "System authenticates the user based on the provided credentials",
+        "Successful login grants the user access to the system"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-05",
-        "title": "Session creation",
+        "id": "TS-LOG-01",
+        "title": "Successful login with valid credentials",
         "steps": [
-          "Perform successful login",
-          "Check session status"
+          "Navigate to the login page",
+          "Enter a registered and verified email",
+          "Enter the correct password",
+          "Submit the login form"
         ],
-        "expected_result": "User session is created and active."
+        "expected_result": "User is authenticated and granted access to the system"
+      },
+      {
+        "id": "TS-LOG-02",
+        "title": "Login with incorrect password",
+        "steps": [
+          "Navigate to the login page",
+          "Enter a registered and verified email",
+          "Enter an incorrect password",
+          "Submit the login form"
+        ],
+        "expected_result": "System denies login and informs the user that the credentials are invalid"
+      },
+      {
+        "id": "TS-LOG-03",
+        "title": "Login with unregistered email",
+        "steps": [
+          "Navigate to the login page",
+          "Enter an email that is not registered",
+          "Enter a password",
+          "Submit the login form"
+        ],
+        "expected_result": "System denies login and informs the user that the credentials are invalid"
+      },
+      {
+        "id": "TS-LOG-04",
+        "title": "Login with empty email and password fields",
+        "steps": [
+          "Navigate to the login page",
+          "Leave email and password fields empty",
+          "Submit the login form"
+        ],
+        "expected_result": "System rejects the login attempt and prompts the user to provide credentials"
       }
     ],
     "edge_cases": [
       {
-        "description": "Concurrent logins from different devices",
-        "expected_behavior": "Sessions are maintained as per system defaults."
+        "description": "User enters correct email but leaves password field empty",
+        "expected_behavior": "System rejects login and prompts the user to enter a password"
+      },
+      {
+        "description": "User enters correct password but leaves email field empty",
+        "expected_behavior": "System rejects login and prompts the user to enter an email"
+      }
+    ]
+  },
+  {
+    "feature": "Session Creation",
+    "qa_story": {
+      "title": "As a logged-in user, I should have a session created and maintained so that my authenticated state persists while I use the system",
+      "acceptance_criteria": [
+        "A user session is created upon successful login",
+        "The session is maintained while the user interacts with the system",
+        "The user remains authenticated throughout the active session"
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-SES-01",
+        "title": "Session is created after successful login",
+        "steps": [
+          "Log in with valid credentials",
+          "Check the system for an active session"
+        ],
+        "expected_result": "An active session exists for the logged-in user"
+      },
+      {
+        "id": "TS-SES-02",
+        "title": "Session persists across user interactions",
+        "steps": [
+          "Log in with valid credentials",
+          "Navigate to different areas of the system",
+          "Verify the user remains authenticated"
+        ],
+        "expected_result": "User remains logged in and session is maintained throughout interactions"
+      },
+      {
+        "id": "TS-SES-03",
+        "title": "No session is created on failed login",
+        "steps": [
+          "Attempt to log in with invalid credentials",
+          "Check the system for an active session"
+        ],
+        "expected_result": "No session is created for the failed login attempt"
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "User opens multiple browser tabs after login",
+        "expected_behavior": "Session is maintained and the user remains authenticated across all tabs"
       }
     ]
   },
   {
     "feature": "User Logout",
     "qa_story": {
-      "title": "User Logout",
+      "title": "As a logged-in user, I should be able to log out of the system so that my session is invalidated and my account is secured",
       "acceptance_criteria": [
-        "User can log out to invalidate their session."
+        "User can initiate a logout action",
+        "Upon logout, the user's session is invalidated",
+        "After logout, the user can no longer access authenticated areas without logging in again"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-06",
-        "title": "Successful logout",
+        "id": "TS-LGO-01",
+        "title": "Successful logout invalidates session",
         "steps": [
-          "Click logout",
-          "Check session status"
+          "Log in with valid credentials",
+          "Initiate the logout action",
+          "Verify the session is invalidated"
         ],
-        "expected_result": "User session is invalidated."
+        "expected_result": "User's session is invalidated and user is logged out"
+      },
+      {
+        "id": "TS-LGO-02",
+        "title": "Access to authenticated area after logout",
+        "steps": [
+          "Log in with valid credentials",
+          "Log out of the system",
+          "Attempt to access an authenticated area"
+        ],
+        "expected_result": "System denies access and requires the user to log in again"
+      },
+      {
+        "id": "TS-LGO-03",
+        "title": "Session token is invalid after logout",
+        "steps": [
+          "Log in with valid credentials",
+          "Note the session token",
+          "Log out of the system",
+          "Attempt to use the old session token"
+        ],
+        "expected_result": "System rejects the old session token as invalid"
       }
     ],
     "edge_cases": [
       {
-        "description": "Attempt to log out when already logged out",
-        "expected_behavior": "System handles gracefully."
+        "description": "User clicks logout multiple times in quick succession",
+        "expected_behavior": "System handles the request gracefully without errors and the session remains invalidated"
       }
     ]
   },
   {
     "feature": "Password Reset",
     "qa_story": {
-      "title": "Password Reset",
+      "title": "As a user who has forgotten my password, I should be able to request a password reset using my registered email and set a new password so that I can regain access to my account",
       "acceptance_criteria": [
-        "User can request password reset with registered email and set a new password."
+        "User can request a password reset by providing their registered email",
+        "System sends a password reset mechanism to the registered email",
+        "User can set a new password through the reset process",
+        "User can log in with the new password after reset"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-07",
-        "title": "Successful password reset",
+        "id": "TS-PWR-01",
+        "title": "Successful password reset request with registered email",
         "steps": [
-          "Request reset with email",
-          "Set new password"
+          "Navigate to the password reset page",
+          "Enter a registered email address",
+          "Submit the password reset request"
         ],
-        "expected_result": "New password is set."
+        "expected_result": "System acknowledges the request and initiates the password reset process for the provided email"
+      },
+      {
+        "id": "TS-PWR-02",
+        "title": "Set a new password after reset request",
+        "steps": [
+          "Request a password reset with a registered email",
+          "Follow the password reset process",
+          "Set a new password"
+        ],
+        "expected_result": "System updates the password and confirms the new password has been set"
+      },
+      {
+        "id": "TS-PWR-03",
+        "title": "Login with new password after reset",
+        "steps": [
+          "Complete the password reset and set a new password",
+          "Attempt to log in with the registered email and the new password"
+        ],
+        "expected_result": "User is able to log in successfully with the new password"
+      },
+      {
+        "id": "TS-PWR-04",
+        "title": "Login with old password after reset",
+        "steps": [
+          "Complete the password reset and set a new password",
+          "Attempt to log in with the registered email and the old password"
+        ],
+        "expected_result": "System denies login with the old password"
+      },
+      {
+        "id": "TS-PWR-05",
+        "title": "Password reset request with unregistered email",
+        "steps": [
+          "Navigate to the password reset page",
+          "Enter an email that is not registered",
+          "Submit the password reset request"
+        ],
+        "expected_result": "System does not initiate a reset for an unregistered email"
       }
     ],
     "edge_cases": [
       {
-        "description": "Request reset with unregistered email",
-        "expected_behavior": "System processes without revealing user existence (or follows standard flow)."
+        "description": "User requests multiple password resets in quick succession",
+        "expected_behavior": "System handles multiple requests gracefully; only the latest reset process should be valid"
+      },
+      {
+        "description": "User attempts to use an expired or already-used password reset token",
+        "expected_behavior": "System rejects the token and informs the user it is invalid or expired"
       }
     ]
   },
   {
-    "feature": "Session Expiration after a period of inactivity",
+    "feature": "Session Expiry",
     "qa_story": {
-      "title": "Session Expiration",
+      "title": "As a system, user sessions should expire after a period of inactivity so that idle accounts are secured",
       "acceptance_criteria": [
-        "User session expires after a period of inactivity."
+        "User sessions expire after a period of inactivity",
+        "After session expiry, the user must log in again to access the system",
+        "Active sessions that are in use do not expire prematurely"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-08",
-        "title": "Session expiration on inactivity",
+        "id": "TS-EXP-01",
+        "title": "Session expires after inactivity",
         "steps": [
-          "Log in",
-          "Wait for inactivity period"
+          "Log in with valid credentials",
+          "Remain inactive for the defined inactivity period",
+          "Attempt to perform an action in the system"
         ],
-        "expected_result": "User session is expired."
+        "expected_result": "System denies the action and informs the user that the session has expired"
+      },
+      {
+        "id": "TS-EXP-02",
+        "title": "User must log in again after session expiry",
+        "steps": [
+          "Log in with valid credentials",
+          "Allow the session to expire due to inactivity",
+          "Attempt to access an authenticated area"
+        ],
+        "expected_result": "System requires the user to log in again"
+      },
+      {
+        "id": "TS-EXP-03",
+        "title": "Active session does not expire while user is active",
+        "steps": [
+          "Log in with valid credentials",
+          "Continuously interact with the system within the inactivity period",
+          "Verify the session status"
+        ],
+        "expected_result": "Session remains active and the user stays authenticated"
       }
     ],
     "edge_cases": [
       {
-        "description": "Activity performed just before expiration",
-        "expected_behavior": "Inactivity timer is reset."
-      }
-    ]
-  },
-  {
-    "feature": "User session should expire in 1 minute",
-    "qa_story": {
-      "title": "1 Minute Session Expiration",
-      "acceptance_criteria": [
-        "User session expires in exactly 1 minute."
-      ]
-    },
-    "test_scenarios": [
+        "description": "User becomes inactive just before the expiry threshold and then performs an action exactly at the threshold",
+        "expected_behavior": "System handles the boundary condition consistently, either allowing or denying based on whether the threshold was reached"
+      },
       {
-        "id": "TS-09",
-        "title": "1 minute session timeout",
-        "steps": [
-          "Log in",
-          "Wait 1 minute"
-        ],
-        "expected_result": "Session is expired."
-      }
-    ],
-    "edge_cases": [
-      {
-        "description": "Wait 59 seconds",
-        "expected_behavior": "Session is still active."
+        "description": "Session expires while the user is in the middle of submitting a form",
+        "expected_behavior": "System informs the user the session has expired and does not process the submission"
       }
     ]
   }

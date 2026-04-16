@@ -59,7 +59,7 @@ All results must be combined into ONE valid JSON array:
   {
     "feature": "Feature name",
     "qa_story": {
-      "title": "...",
+      "title": "As a [role], I should be able to [action] so that [benefit]",
       "acceptance_criteria": ["..."]
     },
     "test_scenarios": [

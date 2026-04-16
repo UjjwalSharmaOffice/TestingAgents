@@ -45,6 +45,10 @@ GUIDELINES:
 
 QA Story:
 - Reflect ONLY the feature
+- The title MUST follow this format: "As a [role], I should be able to [action] so that [benefit]"
+- The [role] must be derived from context (e.g., User, Admin, System). If the feature says "user", use "User". If unclear, default to "User".
+- The [action] must come directly from the feature text — do NOT add to it
+- The [benefit] must be directly implied by the feature — do NOT invent benefits
 
 Acceptance Criteria:
 - Directly derived from the feature
@@ -83,7 +87,7 @@ OUTPUT FORMAT (STRICT JSON):
 {
   "feature": "Feature name",
   "qa_story": {
-    "title": "...",
+    "title": "As a [role], I should be able to [action] so that [benefit]",
     "acceptance_criteria": ["..."]
   },
   "test_scenarios": [
