@@ -57,6 +57,7 @@ All results must be combined into ONE valid JSON array:
 
 [
   {
+    "epic_id": "EPIC-XXX",
     "feature": "Feature name",
     "qa_story": {
       "title": "As a [role], I should be able to [action] so that [benefit]",
@@ -78,6 +79,13 @@ All results must be combined into ONE valid JSON array:
     ]
   }
 ]
+
+EPIC ID RULES:
+- The feature_extractor assigns each feature a unique epic_id (EPIC-001, EPIC-002, etc.)
+- This epic_id MUST be carried through every stage of the pipeline unchanged
+- The qa_generator receives the epic_id and includes it in output
+- The qa_validator preserves the epic_id without modification
+- The final JSON output MUST contain epic_id as the FIRST field in each object
 
 ---
 

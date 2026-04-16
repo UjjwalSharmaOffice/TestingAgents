@@ -1,8 +1,9 @@
 [
   {
+    "epic_id": "EPIC-001",
     "feature": "User Registration",
     "qa_story": {
-      "title": "As a new user, I should be able to register using email and password so that I can create an account in the system",
+      "title": "As a new user, I should be able to register using a valid email and password so that I can create an account in the system",
       "acceptance_criteria": [
         "User can submit a registration form with email and password",
         "System creates a new account with the provided email and password",
@@ -11,7 +12,7 @@
     },
     "test_scenarios": [
       {
-        "id": "TS-REG-01",
+        "id": "TS-01",
         "title": "Successful registration with valid email and password",
         "steps": [
           "Navigate to the registration page",
@@ -22,7 +23,7 @@
         "expected_result": "User account is created and registration success is confirmed"
       },
       {
-        "id": "TS-REG-02",
+        "id": "TS-02",
         "title": "Registration with an already registered email",
         "steps": [
           "Navigate to the registration page",
@@ -33,7 +34,7 @@
         "expected_result": "System rejects registration and informs the user that the email is already in use"
       },
       {
-        "id": "TS-REG-03",
+        "id": "TS-03",
         "title": "Registration with empty email field",
         "steps": [
           "Navigate to the registration page",
@@ -44,7 +45,7 @@
         "expected_result": "System rejects registration and prompts the user to provide an email"
       },
       {
-        "id": "TS-REG-04",
+        "id": "TS-04",
         "title": "Registration with empty password field",
         "steps": [
           "Navigate to the registration page",
@@ -67,18 +68,19 @@
     ]
   },
   {
+    "epic_id": "EPIC-002",
     "feature": "Email Verification",
     "qa_story": {
-      "title": "As a registered user, I should be required to verify my email before logging in so that the system confirms my email ownership",
+      "title": "As a registered user, I should be able to verify my email so that I am allowed to log in to the system",
       "acceptance_criteria": [
-        "After registration, user must verify their email",
+        "After registration, user must verify their email before logging in",
         "Unverified users are not allowed to log in",
         "Verified users are allowed to proceed to login"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-VER-01",
+        "id": "TS-01",
         "title": "Login attempt by an unverified user",
         "steps": [
           "Register a new account with valid email and password",
@@ -88,7 +90,7 @@
         "expected_result": "System denies login and informs the user that email verification is required"
       },
       {
-        "id": "TS-VER-02",
+        "id": "TS-02",
         "title": "Successful login after email verification",
         "steps": [
           "Register a new account with valid email and password",
@@ -98,7 +100,7 @@
         "expected_result": "System allows the user to log in successfully"
       },
       {
-        "id": "TS-VER-03",
+        "id": "TS-03",
         "title": "Email verification completes successfully",
         "steps": [
           "Register a new account with valid email and password",
@@ -119,19 +121,20 @@
     ]
   },
   {
+    "epic_id": "EPIC-003",
     "feature": "User Login",
     "qa_story": {
-      "title": "As a registered and verified user, I should be able to log in using my email and password so that I can access the system",
+      "title": "As a registered and verified user, I should be able to log in using my email and correct password so that I can access the system",
       "acceptance_criteria": [
-        "Registered and verified users can log in with their email and password",
+        "Registered and verified users can log in with their email and correct password",
         "System authenticates the user based on the provided credentials",
         "Successful login grants the user access to the system"
       ]
     },
     "test_scenarios": [
       {
-        "id": "TS-LOG-01",
-        "title": "Successful login with valid credentials",
+        "id": "TS-01",
+        "title": "Successful login with valid email and correct password",
         "steps": [
           "Navigate to the login page",
           "Enter a registered and verified email",
@@ -141,7 +144,7 @@
         "expected_result": "User is authenticated and granted access to the system"
       },
       {
-        "id": "TS-LOG-02",
+        "id": "TS-02",
         "title": "Login with incorrect password",
         "steps": [
           "Navigate to the login page",
@@ -152,7 +155,7 @@
         "expected_result": "System denies login and informs the user that the credentials are invalid"
       },
       {
-        "id": "TS-LOG-03",
+        "id": "TS-03",
         "title": "Login with unregistered email",
         "steps": [
           "Navigate to the login page",
@@ -163,7 +166,7 @@
         "expected_result": "System denies login and informs the user that the credentials are invalid"
       },
       {
-        "id": "TS-LOG-04",
+        "id": "TS-04",
         "title": "Login with empty email and password fields",
         "steps": [
           "Navigate to the login page",
@@ -185,6 +188,7 @@
     ]
   },
   {
+    "epic_id": "EPIC-004",
     "feature": "Session Creation",
     "qa_story": {
       "title": "As a logged-in user, I should have a session created and maintained so that my authenticated state persists while I use the system",
@@ -196,7 +200,7 @@
     },
     "test_scenarios": [
       {
-        "id": "TS-SES-01",
+        "id": "TS-01",
         "title": "Session is created after successful login",
         "steps": [
           "Log in with valid credentials",
@@ -205,7 +209,7 @@
         "expected_result": "An active session exists for the logged-in user"
       },
       {
-        "id": "TS-SES-02",
+        "id": "TS-02",
         "title": "Session persists across user interactions",
         "steps": [
           "Log in with valid credentials",
@@ -215,7 +219,7 @@
         "expected_result": "User remains logged in and session is maintained throughout interactions"
       },
       {
-        "id": "TS-SES-03",
+        "id": "TS-03",
         "title": "No session is created on failed login",
         "steps": [
           "Attempt to log in with invalid credentials",
@@ -232,6 +236,7 @@
     ]
   },
   {
+    "epic_id": "EPIC-005",
     "feature": "User Logout",
     "qa_story": {
       "title": "As a logged-in user, I should be able to log out of the system so that my session is invalidated and my account is secured",
@@ -243,7 +248,7 @@
     },
     "test_scenarios": [
       {
-        "id": "TS-LGO-01",
+        "id": "TS-01",
         "title": "Successful logout invalidates session",
         "steps": [
           "Log in with valid credentials",
@@ -253,7 +258,7 @@
         "expected_result": "User's session is invalidated and user is logged out"
       },
       {
-        "id": "TS-LGO-02",
+        "id": "TS-02",
         "title": "Access to authenticated area after logout",
         "steps": [
           "Log in with valid credentials",
@@ -263,7 +268,7 @@
         "expected_result": "System denies access and requires the user to log in again"
       },
       {
-        "id": "TS-LGO-03",
+        "id": "TS-03",
         "title": "Session token is invalid after logout",
         "steps": [
           "Log in with valid credentials",
@@ -282,6 +287,7 @@
     ]
   },
   {
+    "epic_id": "EPIC-006",
     "feature": "Password Reset",
     "qa_story": {
       "title": "As a user who has forgotten my password, I should be able to request a password reset using my registered email and set a new password so that I can regain access to my account",
@@ -294,7 +300,7 @@
     },
     "test_scenarios": [
       {
-        "id": "TS-PWR-01",
+        "id": "TS-01",
         "title": "Successful password reset request with registered email",
         "steps": [
           "Navigate to the password reset page",
@@ -304,7 +310,7 @@
         "expected_result": "System acknowledges the request and initiates the password reset process for the provided email"
       },
       {
-        "id": "TS-PWR-02",
+        "id": "TS-02",
         "title": "Set a new password after reset request",
         "steps": [
           "Request a password reset with a registered email",
@@ -314,7 +320,7 @@
         "expected_result": "System updates the password and confirms the new password has been set"
       },
       {
-        "id": "TS-PWR-03",
+        "id": "TS-03",
         "title": "Login with new password after reset",
         "steps": [
           "Complete the password reset and set a new password",
@@ -323,7 +329,7 @@
         "expected_result": "User is able to log in successfully with the new password"
       },
       {
-        "id": "TS-PWR-04",
+        "id": "TS-04",
         "title": "Login with old password after reset",
         "steps": [
           "Complete the password reset and set a new password",
@@ -332,7 +338,7 @@
         "expected_result": "System denies login with the old password"
       },
       {
-        "id": "TS-PWR-05",
+        "id": "TS-05",
         "title": "Password reset request with unregistered email",
         "steps": [
           "Navigate to the password reset page",
@@ -354,9 +360,10 @@
     ]
   },
   {
+    "epic_id": "EPIC-007",
     "feature": "Session Expiry",
     "qa_story": {
-      "title": "As a system, user sessions should expire after a period of inactivity so that idle accounts are secured",
+      "title": "As a system administrator, I should be able to enforce session expiry after a period of inactivity so that idle user accounts are secured",
       "acceptance_criteria": [
         "User sessions expire after a period of inactivity",
         "After session expiry, the user must log in again to access the system",
@@ -365,7 +372,7 @@
     },
     "test_scenarios": [
       {
-        "id": "TS-EXP-01",
+        "id": "TS-01",
         "title": "Session expires after inactivity",
         "steps": [
           "Log in with valid credentials",
@@ -375,7 +382,7 @@
         "expected_result": "System denies the action and informs the user that the session has expired"
       },
       {
-        "id": "TS-EXP-02",
+        "id": "TS-02",
         "title": "User must log in again after session expiry",
         "steps": [
           "Log in with valid credentials",
@@ -385,7 +392,7 @@
         "expected_result": "System requires the user to log in again"
       },
       {
-        "id": "TS-EXP-03",
+        "id": "TS-03",
         "title": "Active session does not expire while user is active",
         "steps": [
           "Log in with valid credentials",

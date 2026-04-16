@@ -44,8 +44,18 @@ Output format (STRICT JSON only):
 
 {
   "features": [
-    "Feature 1",
-    "Feature 2",
-    "Feature 3"
+    {
+      "epic_id": "EPIC-001",
+      "feature": "Feature 1"
+    },
+    {
+      "epic_id": "EPIC-002",
+      "feature": "Feature 2"
+    }
   ]
 }
+
+EPIC ID RULES:
+- Assign a sequential epic_id to each feature starting from EPIC-001
+- Format: "EPIC-XXX" where XXX is a zero-padded 3-digit number
+- IDs must be unique and sequential in extraction order
