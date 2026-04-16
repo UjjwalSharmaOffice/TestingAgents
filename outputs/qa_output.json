@@ -1,0 +1,220 @@
+﻿[
+  {
+    "feature": "User Registration using email and password",
+    "qa_story": {
+      "title": "User Registration",
+      "acceptance_criteria": [
+        "User can register providing an email and a password."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-01",
+        "title": "Successful registration",
+        "steps": [
+          "Input email",
+          "Input password",
+          "Submit"
+        ],
+        "expected_result": "Registration is successful."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Missing email or password",
+        "expected_behavior": "Registration is not processed."
+      }
+    ]
+  },
+  {
+    "feature": "Email Verification required before login",
+    "qa_story": {
+      "title": "Email Verification",
+      "acceptance_criteria": [
+        "User must verify their email before logging in."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-02",
+        "title": "Login with verified email",
+        "steps": [
+          "Verify email",
+          "Attempt login"
+        ],
+        "expected_result": "Login is permitted."
+      },
+      {
+        "id": "TS-03",
+        "title": "Login with unverified email",
+        "steps": [
+          "Attempt login without verifying email"
+        ],
+        "expected_result": "Login is denied."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Email verification link clicked multiple times",
+        "expected_behavior": "Email remains verified, no error blocks user."
+      }
+    ]
+  },
+  {
+    "feature": "User Login for registered and verified users using email and password",
+    "qa_story": {
+      "title": "User Login",
+      "acceptance_criteria": [
+        "Registered and verified users can log in using email and password."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-04",
+        "title": "Successful login",
+        "steps": [
+          "Input registered email",
+          "Input correct password",
+          "Submit login"
+        ],
+        "expected_result": "User logs in successfully."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Login with wrong password",
+        "expected_behavior": "Login is denied."
+      }
+    ]
+  },
+  {
+    "feature": "Session Management",
+    "qa_story": {
+      "title": "Session Management",
+      "acceptance_criteria": [
+        "System creates and maintains a user session after login."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-05",
+        "title": "Session creation",
+        "steps": [
+          "Perform successful login",
+          "Check session status"
+        ],
+        "expected_result": "User session is created and active."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Concurrent logins from different devices",
+        "expected_behavior": "Sessions are maintained as per system defaults."
+      }
+    ]
+  },
+  {
+    "feature": "User Logout",
+    "qa_story": {
+      "title": "User Logout",
+      "acceptance_criteria": [
+        "User can log out to invalidate their session."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-06",
+        "title": "Successful logout",
+        "steps": [
+          "Click logout",
+          "Check session status"
+        ],
+        "expected_result": "User session is invalidated."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Attempt to log out when already logged out",
+        "expected_behavior": "System handles gracefully."
+      }
+    ]
+  },
+  {
+    "feature": "Password Reset",
+    "qa_story": {
+      "title": "Password Reset",
+      "acceptance_criteria": [
+        "User can request password reset with registered email and set a new password."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-07",
+        "title": "Successful password reset",
+        "steps": [
+          "Request reset with email",
+          "Set new password"
+        ],
+        "expected_result": "New password is set."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Request reset with unregistered email",
+        "expected_behavior": "System processes without revealing user existence (or follows standard flow)."
+      }
+    ]
+  },
+  {
+    "feature": "Session Expiration after a period of inactivity",
+    "qa_story": {
+      "title": "Session Expiration",
+      "acceptance_criteria": [
+        "User session expires after a period of inactivity."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-08",
+        "title": "Session expiration on inactivity",
+        "steps": [
+          "Log in",
+          "Wait for inactivity period"
+        ],
+        "expected_result": "User session is expired."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Activity performed just before expiration",
+        "expected_behavior": "Inactivity timer is reset."
+      }
+    ]
+  },
+  {
+    "feature": "User session should expire in 1 minute",
+    "qa_story": {
+      "title": "1 Minute Session Expiration",
+      "acceptance_criteria": [
+        "User session expires in exactly 1 minute."
+      ]
+    },
+    "test_scenarios": [
+      {
+        "id": "TS-09",
+        "title": "1 minute session timeout",
+        "steps": [
+          "Log in",
+          "Wait 1 minute"
+        ],
+        "expected_result": "Session is expired."
+      }
+    ],
+    "edge_cases": [
+      {
+        "description": "Wait 59 seconds",
+        "expected_behavior": "Session is still active."
+      }
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+The system should allow users to register using email and password.
+
+Users must verify their email before they are allowed to log in.
+
+Registered and verified users should be able to log in using their email and password.
+
+After successful login, the system should create and maintain a user session.
+
+Users should be able to log out of the system, which invalidates their session.
+
+If a user forgets their password, they should be able to request a password reset using their registered email and set a new password.
+
+The system should expire user sessions after a period of inactivity.
