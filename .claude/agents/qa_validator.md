@@ -80,13 +80,15 @@ DO NOT:
 - Add explanations or comments
 - Change the JSON structure
 - Add traceability fields or metadata
+- Remove or modify the epic_id field — it MUST be preserved exactly as received
 
 ---
 
 OUTPUT REQUIREMENTS:
 
 - Return the CLEANED JSON in the EXACT same structure as the input
-- Every feature must still have: qa_story, test_scenarios, edge_cases
+- Every feature must still have: epic_id, feature, qa_story, test_scenarios, edge_cases
+- The epic_id field MUST remain the FIRST field in each object and MUST NOT be modified
 - If all edge_cases for a feature are removed, return an empty array: "edge_cases": []
 - If cleaning removes ALL test_scenarios for a feature, you MUST keep the single most directly aligned happy-path scenario — the one that tests the core stated behavior
 - After cleaning, verify: every feature has at least 1 test_scenario. If not, something went wrong — re-evaluate
