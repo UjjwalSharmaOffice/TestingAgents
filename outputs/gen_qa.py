@@ -1,4 +1,6 @@
-{
+import json
+
+data = {
   "project": "CodEval Platform",
   "scope": "Team 1 (Authentication + Admin Platform) and Team 1 + Team 2 Combined (Integration Contracts)",
   "generated_at": "2026-04-22",
@@ -1058,3 +1060,9 @@
     }
   ]
 }
+
+output_path = r'c:\Users\UjjwalSharma\Desktop\TestingAgents\outputs\qa_output.json'
+with open(output_path, 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
+print(f'Written {len(data["features"])} features to {output_path}')
+
