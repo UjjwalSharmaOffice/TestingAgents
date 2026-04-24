@@ -73,6 +73,8 @@ Analyze the user-provided content and map each piece to the template:
    - Note Style paragraphs (often contain `[instructions in brackets]`).
    - Template sample data in table cells (e.g., `<Application 1>`, `<resource name>`, `<Component 1>`).
    - Any text wrapped in angle brackets `< >` or square brackets `[ ]` that is instructional.
+   - **Guidance-text cells**: Many templates have a "Purpose" or "Description" column where each cell contains a short instructional sentence (e.g. "Define what is in scope for QA activities", "Describe how test cases are derived"). These are NOT headings and NOT Note Style — they are Body Text or Normal paragraphs inside table cells. They MUST be replaced with actual content using `set_cell()`. Do NOT leave them unchanged.
+   - **Multi-paragraph cells**: A single table cell may contain multiple paragraphs — typically one guidance/placeholder paragraph followed by one or more empty bullet paragraphs. `set_cell()` handles this: it writes to Para 0 and clears all subsequent paragraphs. Always use `set_cell()` for table cells, never `cell.paragraphs[0].text = ...` directly.
 
 Build an explicit mapping plan before writing any code. For example:
 ```
@@ -98,20 +100,28 @@ from copy import deepcopy
 from docx.oxml.ns import qn
 
 def set_cell(cell, text):
-    """Set cell text while preserving cell and run formatting."""
-    if cell.paragraphs:
-        p = cell.paragraphs[0]
+    """Set cell text while preserving cell and run formatting.
+    Writes new_text into Para 0 and clears all subsequent paragraphs.
+    This handles template cells that contain multiple paragraphs
+    (e.g. a guidance/placeholder paragraph followed by empty bullet paragraphs).
+    """
+    if not cell.paragraphs:
+        return
+    # Write into Para 0
+    p0 = cell.paragraphs[0]
+    if p0.runs:
+        p0.runs[0].text = str(text)
+        for r in p0.runs[1:]:
+            r.text = ''
+    else:
+        p0.text = str(text)
+    # Clear ALL subsequent paragraphs (stray bullets, guidance text, etc.)
+    for p in cell.paragraphs[1:]:
         if p.runs:
-            p.runs[0].text = str(text)
+            p.runs[0].text = ''
             for r in p.runs[1:]:
                 r.text = ''
         else:
-            p.text = str(text)
-    # Clear extra paragraphs in cell
-    for p in cell.paragraphs[1:]:
-        for r in p.runs:
-            r.text = ''
-        if not p.runs:
             p.text = ''
 
 def set_paragraph_text(paragraph, text):
